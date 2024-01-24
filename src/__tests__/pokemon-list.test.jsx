@@ -4,7 +4,7 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
-import PokemonList from "../pokemon-list";
+import Pokemon from "../pokemon";
 import userEvent from "@testing-library/user-event";
 import { server, rest } from "../test/mock-server";
 import pokemonsResultPage1 from "./pokemon-result-limit-5-offset-0.json";
@@ -39,7 +39,7 @@ describe("Pokemon list with 'Load more' button", () => {
   });
 
   it("initially displays the first 5 pokemons", async () => {
-    render(<PokemonList />);
+    render(<Pokemon />);
 
     // Use a list to display the products - e.g. an `ul` or `ol` element
     expect(await screen.findByRole("list")).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe("Pokemon list with 'Load more' button", () => {
   });
 
   it("shows a 'Load more' button and the info about number of items displayed", async () => {
-    render(<PokemonList />);
+    render(<Pokemon />);
 
     // Shows the 'Load more' button
     expect(await screen.findByRole("button")).toHaveTextContent("Load more");
@@ -79,7 +79,7 @@ describe("Pokemon list with 'Load more' button", () => {
   });
 
   it("loads 5 more pokemons when the user presses 'Load more'", async () => {
-    render(<PokemonList />);
+    render(<Pokemon />);
 
     // Press the "Load more" button
     const user = userEvent.setup();
@@ -116,7 +116,7 @@ describe("Pokemon list with 'Load more' button", () => {
   });
 
   it("no longer shows the 'Load more' if the user reached the last page", async () => {
-    render(<PokemonList />);
+    render(<Pokemon />);
 
     // Press the "Load more" button twice, so we get to the last page
     const user = userEvent.setup();
