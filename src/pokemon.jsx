@@ -3,7 +3,7 @@
 // https://pokeapi.co/api/v2/pokemon?limit=5&offset=0
 
 // TODO - remove the load more button when there are no more results
-// TODO - styling
+// TODO - styling.
 
 import { useEffect, useState } from "react";
 import fetchItems from "./utils/fetch";
