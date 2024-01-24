@@ -4,7 +4,6 @@
 
 // TODO - remove the load more button when there are no more results
 // TODO - styling
-// TODO - push this to my remote repo
 
 import { useEffect, useState } from "react";
 import fetchItems from "./utils/fetch";
