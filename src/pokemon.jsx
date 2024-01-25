@@ -2,8 +2,7 @@
 // Make sure to replace limit and offset with the appropriate values
 // https://pokeapi.co/api/v2/pokemon?limit=5&offset=0
 
-// TODO - remove the load more button when there are no more results
-// TODO - styling.
+// TODO - styling
 
 import { useEffect, useState } from "react";
 import fetchItems from "./utils/fetch";
@@ -17,18 +16,30 @@ const Pokemon = () => {
 	const [page, setPage] = useState(1);
 	const [offset, setOffset] = useState(0);
 	const [currentIndex, setCurrentIndex] = useState(5);
+	const [showButton, setShowButton] = useState(true);
+	const [next, setNext] = useState('');
 
-	const loadMore = () => {
+	const loadMore = () => {		
 		setOffset(page * limit);
 		setPage(page + 1);
-		setCurrentIndex(currentIndex + limit);
+
+		if(next) {
+			setCurrentIndex(currentIndex + limit);
+		}
 	}
 
 	useEffect(() => {
 		fetchItems(limit, offset).then((response) => {
 			setPokemons((prev) => [...prev, ...response.results]);
 			setTotal(response.count);
+			setNext(response.next);
+
+			if(!response.next) {
+				setCurrentIndex(response.count);
+				setShowButton(false);
+			}
 		});
+
 	}, [offset]);
 
 	return (
@@ -39,7 +50,7 @@ const Pokemon = () => {
 
 			<p>Displaying {currentIndex} of {total} results</p>
 						
-			<button onClick={loadMore}>Load more</button>
+			<button onClick={loadMore} style={{ display: (showButton ? 'block': 'none')}}>Load more</button>
 		</>
 	)
 };
